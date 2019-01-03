@@ -13,7 +13,7 @@ requests_session = requests.Session()
 def is_up(auth):
     url = os.getenv("URL")
     try:
-        resp = requests_session.get(f'{url}/actuator/health', auth=auth)
+        resp = requests_session.get(f'{url}/actuator/health', auth=auth, timeout=5)
         if resp.status_code != 200:
             print(f'health http_status={resp.status_code}')
             return False
@@ -28,7 +28,7 @@ def is_up(auth):
 def is_on_commit(auth, commit):
     url = os.getenv("URL")
     try:
-        resp = requests_session.get(f'{url}/actuator/info', auth=auth)
+        resp = requests_session.get(f'{url}/actuator/info', auth=auth, timeout=5)
         if resp.status_code != 200:
             print(f'info http_status={resp.status_code}')
             return False
