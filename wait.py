@@ -13,8 +13,7 @@ requests_session = requests.Session()
 
 def patched_create_connection(address, *args, **kwargs):
     host, port = address
-    hostname = overrideResolver(host,)
-
+    hostname = overrideResolver(host)
     return _orig_create_connection((hostname, port), *args, **kwargs)
 
 def overrideResolver(host): 
@@ -58,7 +57,7 @@ def retry_until_healthy(auth, timeout, retries, commit_id):
         if os.getenv("OVERRIDE_IP"):
             print(f'WARNING: DNS queries overriden to use IP {os.getenv("OVERRIDE_IP")}')
 
-            
+
 
         on_commit = is_on_commit(auth, commit_id)
         up = is_up(auth)
